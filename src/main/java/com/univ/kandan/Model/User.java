@@ -1,4 +1,4 @@
-package com.univ.kandan.Model;
+package com.univ.kandan.model;
 
 import java.util.UUID;
 
@@ -27,8 +27,39 @@ public class User {
   @Column(name = "Password")
   private String password;
 
+  public void setNom(String nom) {
+    this.nom = nom;
+  }
+
+  public void setPrenom(String prenom) {
+    this.prenom = prenom;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public UUID getId() {
+    return id;
+  }
+
+  public String getNom() {
+    return nom;
+  }
+
+  public String getPrenom() {
+    return prenom;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
   public String getPassword() {
     return password;
   }
-
 }

@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import com.univ.kandan.Controllers.AuthentificationController;
+import com.univ.kandan.controllers.AuthentificationController;
 
 @Configuration
 @EnableWebSecurity
@@ -30,10 +30,13 @@ public class SpringSecurityWebAppConfig extends WebSecurityConfigurerAdapter {
     http
         .authorizeHttpRequests()
         .antMatchers("/css/*", "/fonts/*", "/img/*", "/js/*", "/favicon.png").permitAll()
-        .antMatchers("/login", "/").permitAll()
+        .antMatchers("/login", "/", "/users/register", "/users/save").permitAll()
         .anyRequest().authenticated()
         .and()
         .formLogin()
+        .usernameParameter("email")
+        .passwordParameter("password")
+        .defaultSuccessUrl("/", true)
         .loginPage("/login")
         .and()
         .logout();

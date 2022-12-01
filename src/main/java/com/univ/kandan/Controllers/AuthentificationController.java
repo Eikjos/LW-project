@@ -1,4 +1,4 @@
-package com.univ.kandan.Controllers;
+package com.univ.kandan.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -8,10 +8,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.univ.kandan.Model.User;
-import com.univ.kandan.Service.UsersService;
+import com.univ.kandan.service.UsersService;
+import com.univ.kandan.model.User;
 
 @Component
 @Controller
@@ -40,7 +38,7 @@ public class AuthentificationController implements AuthenticationProvider {
 
   @Override
   public boolean supports(Class<?> authentication) {
-    return true;
+    return authentication.equals(UsernamePasswordAuthenticationToken.class);
   }
 
   @GetMapping("/login")
