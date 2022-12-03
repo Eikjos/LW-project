@@ -5,13 +5,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.request.WebRequest;
 
 import com.univ.kandan.dto.UserDto;
 import com.univ.kandan.exceptions.UserAlreadyExistException;
@@ -27,13 +24,6 @@ public class UsersController {
   @Autowired
   public UsersController(UsersService usersService) {
     this.usersService = usersService;
-  }
-
-  @GetMapping("/register")
-  public String register(WebRequest request, Model model) {
-    UserDto userDto = new UserDto();
-    model.addAttribute("userDto", userDto);
-    return "register";
   }
 
   @PostMapping("/save")

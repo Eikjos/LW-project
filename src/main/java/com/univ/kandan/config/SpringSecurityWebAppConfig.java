@@ -30,13 +30,14 @@ public class SpringSecurityWebAppConfig extends WebSecurityConfigurerAdapter {
     http
         .authorizeHttpRequests()
         .antMatchers("/css/*", "/fonts/*", "/img/*", "/js/*", "/favicon.png").permitAll()
-        .antMatchers("/login", "/", "/users/register", "/users/save").permitAll()
+        .antMatchers("/login", "/", "/register", "/users/save").permitAll()
         .anyRequest().authenticated()
         .and()
         .formLogin()
         .usernameParameter("email")
         .passwordParameter("password")
         .defaultSuccessUrl("/", true)
+        .failureUrl("/login?error")
         .loginPage("/login")
         .and()
         .logout();

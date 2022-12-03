@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import com.univ.kandan.service.UsersService;
 import com.univ.kandan.model.User;
 
@@ -39,10 +38,5 @@ public class AuthentificationController implements AuthenticationProvider {
   @Override
   public boolean supports(Class<?> authentication) {
     return authentication.equals(UsernamePasswordAuthenticationToken.class);
-  }
-
-  @GetMapping("/login")
-  public String login() {
-    return "login";
   }
 }
