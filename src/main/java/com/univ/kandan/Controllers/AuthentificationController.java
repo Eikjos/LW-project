@@ -1,6 +1,5 @@
 package com.univ.kandan.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,7 +15,6 @@ public class AuthentificationController implements AuthenticationProvider {
 
   private final UsersService usersService;
 
-  @Autowired
   public AuthentificationController(UsersService usersService) {
     this.usersService = usersService;
   }

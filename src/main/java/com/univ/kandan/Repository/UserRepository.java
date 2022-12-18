@@ -1,13 +1,12 @@
 package com.univ.kandan.repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.univ.kandan.model.User;
+import com.univ.kandan.model.User;;
 
-public interface UsersRepository extends CrudRepository<User, UUID> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
   Optional<User> findByEmail(String email);
 

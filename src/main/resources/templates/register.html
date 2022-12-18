@@ -2,15 +2,26 @@
 <html lang = "fr"  xmlns:th="https://www.thymeleaf.org">
   <head>
     <title>Register | Kandan</title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <form th:action="@{/users/save}" method="POST" th:object="${userDto}">
-      <input type="text" name="prenom" th:field="*{prenom}" />
-      <input type="text" name="nom" th:field="*{nom}" />
-      <input type="text" name="email" th:field="*{email}" />
-      <input type="password" name="password" th:field="*{password}" />
-      <input type="submit" value="S'enregistrez" />
-    </form> 
+    <header class="bg-emerald-700 py-5">
+      <h1 class="text-5xl font-bold text-white ml-3">KANBAN</h1>
+    </header>
+    <div class="bg-slate-500 mx-auto py-5 mt-10 px-10 text-white min-w-fit max-w-fit rounded-lg">
+      <h1 class="mx-auto text-4xl font-bold text-center mb-5">S'enregistrez</h1>
+      <div class="text-red-300 border-solid border-2 border-red-500 rounded-lg py-2 px-2 mb-3" th:if="${param.error}">
+        Le compte existe déjà.
+      </div>
+      <form th:action="@{/users/save}" method="POST" th:object="${userDto}" class="flex flex-col justify-center">
+        <input  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4" placeholder="Prénom" type="text" name="prenom" th:field="*{prenom}" />
+        <input  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4" placeholder="Nom" type="text" name="nom" th:field="*{nom}" />
+        <input  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4" placeholder="Adresse mail" type="text" name="email" th:field="*{email}" />
+        <input  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4" placeholder="Mot de passe" type="password" name="password" th:field="*{password}" />
+        <input type="submit" value="S'enregistrez" class="mx-auto bg-white text-black p-3 rounded-lg"/>
+      </form> 
+    </div>
   </body>
 </html>
