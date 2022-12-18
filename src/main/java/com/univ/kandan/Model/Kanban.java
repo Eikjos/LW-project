@@ -1,6 +1,7 @@
 package com.univ.kandan.model;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,11 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-public class Kanban {
+public class Kanban implements Comparable<Kanban> {
+
+  public Kanban() {
+    members = new TreeSet<User>();
+  }
 
   @Id
   @GeneratedValue
@@ -78,6 +83,18 @@ public class Kanban {
 
   public void setMembers(Set<User> users) {
     this.members = users;
+  }
+
+  public void addMember(User user) {
+    this.members.add(user);
+  }
+
+  public void removeMember(User user) {
+    this.members.remove(user);
+  }
+
+  public int compareTo(Kanban kanban) {
+    return this.id.compareTo(kanban.id);
   }
 
 }

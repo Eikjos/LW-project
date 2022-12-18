@@ -16,8 +16,12 @@ public class KanbanService {
         this.kanbanRepostitory = kanbanRepository;
     }
 
-    public Set<Kanban> findAllIsPublic(boolean isPublic) {
-        return kanbanRepostitory.findAllByIsPublic(isPublic);
+    public Set<Kanban> findAllIsPublic() {
+        return kanbanRepostitory.findAllByIsPublic(true);
+    }
+
+    public Set<Kanban> findAllByUser(Long userId) {
+        return kanbanRepostitory.findAllByUser(userId);
     }
 
 }

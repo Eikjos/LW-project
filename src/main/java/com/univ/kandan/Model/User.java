@@ -1,8 +1,10 @@
 package com.univ.kandan.model;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
@@ -11,6 +13,10 @@ import javax.persistence.Column;
 
 @Entity
 public class User implements Comparable<User> {
+
+  public User() {
+    kanbans = new TreeSet<Kanban>();
+  }
 
   @Id
   @GeneratedValue
@@ -29,7 +35,7 @@ public class User implements Comparable<User> {
   @Column(name = "Password")
   private String password;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable
   private Set<Kanban> kanbans;
 
@@ -75,6 +81,14 @@ public class User implements Comparable<User> {
 
   public Set<Kanban> getKanbans() {
     return kanbans;
+  }
+
+  public void addKanban(Kanban kanban) {
+    this.kanbans.add(kanban);
+  }
+
+  public void removeKanban(Kanban kanban) {
+    this.kanbans.remove(kanban);
   }
 
   @Override
