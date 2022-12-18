@@ -1,4 +1,4 @@
-package com.univ.kandan.controllers;
+package com.univ.kandan.Controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.univ.kandan.dto.UserDto;
-import com.univ.kandan.exceptions.UserAlreadyExistException;
-import com.univ.kandan.model.User;
-import com.univ.kandan.service.UsersService;
+import com.univ.kandan.Exceptions.UserAlreadyExistException;
+import com.univ.kandan.Model.User;
+import com.univ.kandan.Service.UsersService;
 
 @Controller
 @RequestMapping("/users")

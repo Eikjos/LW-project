@@ -1,19 +1,22 @@
-package com.univ.kandan.model;
+package com.univ.kandan.Model;
 
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Column;
 
 @Entity
-public class User {
+public class User implements Comparable<User> {
 
   @Id
   @GeneratedValue
   @Column(name = "Id")
-  private UUID id;
+  private Long id;
 
   @Column(name = "Nom")
   private String nom;
@@ -26,6 +29,10 @@ public class User {
 
   @Column(name = "Password")
   private String password;
+
+  @ManyToMany
+  @JoinTable
+  private Set<Kanban> kanbans;
 
   public void setNom(String nom) {
     this.nom = nom;
@@ -43,7 +50,11 @@ public class User {
     this.password = password;
   }
 
-  public UUID getId() {
+  public void SetKanbans(Set<Kanban> kanbans) {
+    this.kanbans = kanbans;
+  }
+
+  public Long getId() {
     return id;
   }
 
@@ -61,5 +72,15 @@ public class User {
 
   public String getPassword() {
     return password;
+  }
+
+  public Set<Kanban> getKanbans() {
+    return kanbans;
+  }
+
+  @Override
+  public int compareTo(User obj)
+  {
+    return this.id.compareTo(obj.id);
   }
 }

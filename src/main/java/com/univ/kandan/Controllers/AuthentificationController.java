@@ -1,4 +1,4 @@
-package com.univ.kandan.controllers;
+package com.univ.kandan.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -7,8 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import com.univ.kandan.service.UsersService;
-import com.univ.kandan.model.User;
+import com.univ.kandan.Service.UsersService;
+import com.univ.kandan.Model.User;
 
 @Component
 @Controller
