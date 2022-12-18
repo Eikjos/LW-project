@@ -1,7 +1,6 @@
-package com.univ.kandan.Model;
+package com.univ.kandan.model;
 
 import java.util.Set;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,15 +1,12 @@
-package com.univ.kandan.Repository;
+package com.univ.kandan.repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-import com.univ.kandan.Model.User;;
+import com.univ.kandan.model.User;;
 
-@Repository
-public interface UserRepository extends CrudRepository<User, UUID> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
   Optional<User> findByEmail(String email);
 

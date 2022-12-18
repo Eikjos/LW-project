@@ -1,8 +1,5 @@
 package com.univ.kandan;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.springframework.boot.CommandLineRunner;
@@ -11,29 +8,28 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.univ.kandan.Model.Kanban;
-import com.univ.kandan.Model.User;
-import com.univ.kandan.Repository.KanbanRepository;
-import com.univ.kandan.Repository.UserRepository;
-
+import com.univ.kandan.model.Kanban;
+import com.univ.kandan.model.User;
+import com.univ.kandan.repository.KanbanRepository;
+import com.univ.kandan.repository.UserRepository;
 
 @EnableAutoConfiguration
 @SpringBootApplication
 public class KandanApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(KandanApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(KandanApplication.class, args);
+    }
 
-	@Bean
-	public CommandLineRunner SeedApplication(UserRepository userRepository, KanbanRepository kanbanRepository) {
-		return (args) -> {
-			loadUserData(userRepository);
-			loadKanbanData(kanbanRepository, userRepository);
-		};
-	}
+    @Bean
+    public CommandLineRunner SeedApplication(UserRepository userRepository, KanbanRepository kanbanRepository) {
+        return (args) -> {
+            loadUserData(userRepository);
+            loadKanbanData(kanbanRepository, userRepository);
+        };
+    }
 
-	private void loadUserData(UserRepository userRepository) {
+    private void loadUserData(UserRepository userRepository) {
         if (userRepository.count() == 0) {
             User user1 = new User();
             user1.setPrenom("Thomas");
@@ -61,7 +57,7 @@ public class KandanApplication {
             kanban1.setDescription("Ceci est le premier projet de l'application kanban que nous venons de réaliser");
             kanban1.setCreator(user1);
             kanban1.setIsPublic(true);
-			TreeSet<User> members = new TreeSet<User>();
+            TreeSet<User> members = new TreeSet<User>();
             members.add(user1);
             members.add(user2);
             kanban1.setMembers(members);

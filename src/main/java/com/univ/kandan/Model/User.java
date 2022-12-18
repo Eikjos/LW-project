@@ -1,7 +1,6 @@
-package com.univ.kandan.Model;
+package com.univ.kandan.model;
 
 import java.util.Set;
-import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -79,8 +78,7 @@ public class User implements Comparable<User> {
   }
 
   @Override
-  public int compareTo(User obj)
-  {
+  public int compareTo(User obj) {
     return this.id.compareTo(obj.id);
   }
 }

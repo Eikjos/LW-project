@@ -1,20 +1,17 @@
-package com.univ.kandan.Service;
+package com.univ.kandan.service;
 
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.univ.kandan.Repository.KanbanRepository;
-import com.univ.kandan.Model.Kanban;
-
+import com.univ.kandan.model.Kanban;
+import com.univ.kandan.repository.KanbanRepository;
 
 @Service
 public class KanbanService {
-    
+
     private final KanbanRepository kanbanRepostitory;
 
-    @Autowired
     public KanbanService(KanbanRepository kanbanRepository) {
         this.kanbanRepostitory = kanbanRepository;
     }

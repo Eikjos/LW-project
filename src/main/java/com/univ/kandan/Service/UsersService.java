@@ -1,14 +1,13 @@
-package com.univ.kandan.Service;
+package com.univ.kandan.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.univ.kandan.dto.UserDto;
-import com.univ.kandan.Exceptions.InvalidCredentialsException;
-import com.univ.kandan.Exceptions.UserAlreadyExistException;
-import com.univ.kandan.Model.User;
-import com.univ.kandan.Repository.UserRepository;
+import com.univ.kandan.exceptions.InvalidCredentialsException;
+import com.univ.kandan.exceptions.UserAlreadyExistException;
+import com.univ.kandan.model.User;
+import com.univ.kandan.repository.UserRepository;
 
 @Service
 public class UsersService {
@@ -17,7 +16,6 @@ public class UsersService {
 
   private final UserRepository userRepository;
 
-  @Autowired
   public UsersService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;

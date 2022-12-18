@@ -1,15 +1,13 @@
-package com.univ.kandan.Repository;
+package com.univ.kandan.repository;
 
 import java.util.Set;
 import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-import com.univ.kandan.Model.Kanban;
+import com.univ.kandan.model.Kanban;
 
-@Repository
 public interface KanbanRepository extends CrudRepository<Kanban, UUID> {
-    
+
     Set<Kanban> findAllByIsPublic(boolean isPublic);
 
 }
