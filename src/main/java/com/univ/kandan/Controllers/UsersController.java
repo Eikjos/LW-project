@@ -28,11 +28,11 @@ public class UsersController {
   public String register(
       @ModelAttribute("userDto") @Valid UserDto userDto,
       HttpServletRequest request,
-      Errors errors) {
+      Errors errors) 
+  {
 
     try {
-      User registered = usersService.registerUser(userDto);
-      System.out.println(registered.getId());
+      usersService.registerUser(userDto);
     } catch (UserAlreadyExistException e) {
       return "redirect:/users/register?error=userAlreadyExist";
     }

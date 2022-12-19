@@ -17,4 +17,5 @@ public interface KanbanRepository extends CrudRepository<Kanban, UUID> {
             + "OR is_public = 1", nativeQuery = true)
     Set<Kanban> findAllByUser(Long userId);
 
+    Kanban findById(Long id);
 }
