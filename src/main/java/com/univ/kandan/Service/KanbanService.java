@@ -52,6 +52,7 @@ public class KanbanService {
     public void afterCreate(KanbanDto kanbanDto, Kanban kanban) {
         for (ColumnDto col : kanbanDto.getColumns()) {
             Column column = modelMapper.map(col, Column.class);
+            column.setKanban(kanban);
             columnRepository.save(column);
         }
     }

@@ -43,7 +43,7 @@ public class Kanban implements Comparable<Kanban> {
   private Set<User> members;
 
   @OneToMany(mappedBy = "kanban", orphanRemoval = true)
-  private Set<Column> columns;
+  private Set<com.univ.kandan.model.Column> columns;
 
   public Long getId() {
     return id;
@@ -67,6 +67,10 @@ public class Kanban implements Comparable<Kanban> {
 
   public Set<User> getMembers() {
     return members;
+  }
+
+  public Set<com.univ.kandan.model.Column> getColumns() {
+    return columns;
   }
 
   public void setNom(String nom) {
@@ -95,6 +99,18 @@ public class Kanban implements Comparable<Kanban> {
 
   public void removeMember(User user) {
     this.members.remove(user);
+  }
+
+  public void setColumns(Set<com.univ.kandan.model.Column> columns) {
+    this.columns = columns;
+  }
+
+  public void addColumns(com.univ.kandan.model.Column column) {
+    this.columns.add(column);
+  }
+
+  public void removeColumns(com.univ.kandan.model.Column column) {
+    this.columns.remove(column);
   }
 
   public int compareTo(Kanban kanban) {
