@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -38,8 +39,11 @@ public class Kanban implements Comparable<Kanban> {
   @Fetch(FetchMode.JOIN)
   private User creator;
 
-  @ManyToMany(mappedBy = "kanbans")
+  @ManyToMany(mappedBy = "kanban")
   private Set<User> members;
+
+  @OneToMany(mappedBy = "kanban", orphanRemoval = true)
+  private Set<Column> columns;
 
   public Long getId() {
     return id;

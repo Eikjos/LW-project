@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Column;
 
 @Entity
@@ -16,6 +17,7 @@ public class User implements Comparable<User> {
 
   public User() {
     kanbans = new TreeSet<Kanban>();
+    tasks = new TreeSet<Task>();
   }
 
   @Id
@@ -26,7 +28,7 @@ public class User implements Comparable<User> {
   @Column(name = "Nom")
   private String nom;
 
-  @Column(name = "Prénom")
+  @Column(name = "Prenom")
   private String prenom;
 
   @Column(name = "Email")
@@ -38,6 +40,9 @@ public class User implements Comparable<User> {
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable
   private Set<Kanban> kanbans;
+
+  @OneToMany(mappedBy = "user", orphanRemoval = false)
+  private Set<Task> tasks;
 
   public void setNom(String nom) {
     this.nom = nom;
@@ -55,8 +60,12 @@ public class User implements Comparable<User> {
     this.password = password;
   }
 
-  public void SetKanbans(Set<Kanban> kanbans) {
+  public void setKanbans(Set<Kanban> kanbans) {
     this.kanbans = kanbans;
+  }
+
+  public void setTasks(Set<Task> tasks) {
+    this.tasks = tasks;
   }
 
   public Long getId() {
@@ -81,6 +90,18 @@ public class User implements Comparable<User> {
 
   public Set<Kanban> getKanbans() {
     return kanbans;
+  }
+
+  public Set<Task> getTasks() {
+    return tasks;
+  }
+
+  public void addTask(Task task) {
+    this.tasks.add(task);
+  }
+
+  public void removeTask(Task task) {
+    this.tasks.remove(task);
   }
 
   public void addKanban(Kanban kanban) {
