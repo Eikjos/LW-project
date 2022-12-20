@@ -1,24 +1,22 @@
-package com.univ.kandan;
+package com.univ.kanban;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.univ.kandan.model.Kanban;
-import com.univ.kandan.model.User;
-import com.univ.kandan.repository.KanbanRepository;
-import com.univ.kandan.repository.UserRepository;
+import com.univ.kanban.models.Kanban;
+import com.univ.kanban.models.User;
+import com.univ.kanban.repositories.KanbanRepository;
+import com.univ.kanban.repositories.UserRepository;
 
-@EnableAutoConfiguration
 @SpringBootApplication
-public class KandanApplication {
+public class KanbanApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KandanApplication.class, args);
+        SpringApplication.run(KanbanApplication.class, args);
     }
 
     @Bean
@@ -27,7 +25,7 @@ public class KandanApplication {
     }
 
     @Bean
-    public CommandLineRunner SeedApplication(UserRepository userRepository, KanbanRepository kanbanRepository,
+    public CommandLineRunner seedApplication(UserRepository userRepository, KanbanRepository kanbanRepository,
             PasswordEncoder passwordEncoder) {
         return (args) -> {
             loadUserData(userRepository, passwordEncoder);
@@ -41,13 +39,13 @@ public class KandanApplication {
             user1.setPrenom("Thomas");
             user1.setNom("Hamelin");
             user1.setEmail("thomas.hamelin@univ-rouen.fr");
-            user1.setPassword(passwordEncoder.encode("azeqsdwxc.2022"));
+            user1.setPassword(passwordEncoder.encode("thomas"));
 
             User user2 = new User();
             user2.setPrenom("Lucas");
             user2.setNom("Ficker");
             user2.setEmail("lucas.ficker@univ-rouen.fr");
-            user2.setPassword(passwordEncoder.encode("azeqsdwxc.2022"));
+            user2.setPassword(passwordEncoder.encode("lucas"));
 
             userRepository.save(user1);
             userRepository.save(user2);
@@ -62,13 +60,13 @@ public class KandanApplication {
             kanban1.setNom("Projet 1");
             kanban1.setDescription("Ceci est le premier projet de l'application kanban que nous venons de réaliser");
             kanban1.setCreator(user1);
-            kanban1.setIsPublic(true);
+            kanban1.setPublic(true);
 
             Kanban kanban2 = new Kanban();
             kanban2.setNom("Projet 2");
             kanban2.setDescription("Ceci est le deuxième projet de l'application kanban que nous venons de réaliser");
             kanban2.setCreator(user2);
-            kanban2.setIsPublic(false);
+            kanban2.setPublic(false);
 
             kanban1 = kanbanRepository.save(kanban1);
             kanban2 = kanbanRepository.save(kanban2);

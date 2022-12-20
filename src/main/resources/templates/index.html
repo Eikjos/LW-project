@@ -29,8 +29,8 @@
       </a>
     </div>
     <div class="flex flex-row flex-wrap justify-center mt-10 mx-32">
-      <div th:each="kanban : ${kanbans}" class="card w-1/5 h-44 mr-4 my-4 bg-slate-300 p-4 rounded-2xl overflow-y-hidden hover:w-1/4 hover:h-52 ease-in">
-        <a th:href="@{kanban/{id}(id=${kanban.id})}">
+      <div th:each="kanban : ${kanbans}" class="card w-1/5 h-44 mr-4 my-4 bg-slate-300 p-4 rounded-2xl overflow-y-hidden hover:w-1/4 hover:h-52 ease-in transition-all">
+        <a th:href="@{kanbans/{id}(id=${kanban.id})}">
             <h2 th:text="${kanban.nom}"></h2>
             <hr class="my-2 h-1">
             <p th:text="${kanban.description}"></p>

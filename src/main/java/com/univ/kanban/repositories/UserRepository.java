@@ -1,13 +1,11 @@
-package com.univ.kandan.repository;
+package com.univ.kanban.repositories;
 
 import java.util.Optional;
 
+import com.univ.kanban.models.User;
 import org.springframework.data.repository.CrudRepository;
-
-import com.univ.kandan.model.User;;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
   Optional<User> findByEmail(String email);
-
 }

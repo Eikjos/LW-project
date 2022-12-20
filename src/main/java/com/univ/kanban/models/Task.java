@@ -1,15 +1,17 @@
-package com.univ.kandan.model;
+package com.univ.kanban.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
+import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 
+@Data
 @Entity
 public class Task implements Comparable<Task>{
     
@@ -21,7 +23,7 @@ public class Task implements Comparable<Task>{
     @Column(name = "nom")
     public String nom;
 
-    @Column(name = "description", nullable = true)
+    @Column(name = "description")
     public String descirption;
 
     @Column(name = "order")
@@ -29,9 +31,9 @@ public class Task implements Comparable<Task>{
 
     @ManyToOne(optional = false)
     @Fetch(FetchMode.JOIN)
-    private com.univ.kandan.model.Column column;
+    private KanbanColumn column;
 
-    @ManyToOne(optional = true)
+    @ManyToOne
     @Fetch(FetchMode.JOIN)
     private User user;
 

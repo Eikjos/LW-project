@@ -1,12 +1,11 @@
-package com.univ.kandan.repository;
+package com.univ.kanban.repositories;
 
 import java.util.Set;
 import java.util.UUID;
 
+import com.univ.kanban.models.Kanban;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
-import com.univ.kandan.model.Kanban;
 
 public interface KanbanRepository extends CrudRepository<Kanban, UUID> {
 
