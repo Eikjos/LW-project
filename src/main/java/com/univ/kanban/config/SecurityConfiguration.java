@@ -35,7 +35,7 @@ public class SecurityConfiguration {
         return http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/css/*", "/fonts/*", "/img/*", "/js/*", "/favicon.png").permitAll()
-                        .requestMatchers("/login", "/", "/register", "/users/save").permitAll()
+                        .requestMatchers("/login", "/", "/register", "/users/save", "/kanbans/{id:[0-9]+}").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(login -> login
                         .usernameParameter("email")
