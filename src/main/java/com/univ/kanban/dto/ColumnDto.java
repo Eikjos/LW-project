@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ColumnDto {
+public class ColumnDto implements Comparable<ColumnDto> {
 
     @NotNull
     @NotEmpty
@@ -17,4 +17,9 @@ public class ColumnDto {
 
     @NotNull
     private Integer order;
+
+    @Override
+    public int compareTo(ColumnDto col) {
+        return order.compareTo(col.order);
+    }
 }

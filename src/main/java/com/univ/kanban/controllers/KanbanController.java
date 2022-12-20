@@ -17,15 +17,18 @@ import com.univ.kanban.dto.KanbanDto;
 import com.univ.kanban.models.Kanban;
 import com.univ.kanban.models.User;
 import com.univ.kanban.services.KanbanService;
+import com.univ.kanban.services.UsersService;
 
 @Controller
 @RequestMapping("/kanbans")
 public class KanbanController {
 
     private final KanbanService kanbanService;
+    private final UsersService usersService;
 
-    public KanbanController(KanbanService kanbanService) {
+    public KanbanController(KanbanService kanbanService, UsersService usersService) {
         this.kanbanService = kanbanService;
+        this.usersService = usersService;
     }
 
     @GetMapping("/{id}")
@@ -37,7 +40,7 @@ public class KanbanController {
 
     @GetMapping("/create")
     public String create(Model model, Authentication authenticate) {
-        User user = (User) authenticate.getDetails();
+        User user = usersService.findByEmail(authenticate.getName()).orElse(null);
         KanbanDto dto = new KanbanDto(user);
         model.addAttribute("kanbanDto", dto);
         return "kanban/create";
