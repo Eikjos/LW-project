@@ -1,16 +1,16 @@
-package com.univ.kandan.dto;
+package com.univ.kanban.dto;
 
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
-import com.univ.kandan.model.User;
+import com.univ.kanban.models.User;
+import lombok.Data;
 
-
+@Data
 public class KanbanDto {
-
 
     public KanbanDto(User user) {
         colums = new TreeSet<ColumnDto>();
@@ -18,7 +18,7 @@ public class KanbanDto {
         colums.add(new ColumnDto("Terminés", 1));
         creator = user;
     }
-    
+
     @NotNull
     @NotEmpty
     private String nom;
@@ -49,18 +49,18 @@ public class KanbanDto {
 
     public void setNom(String nom) {
         this.nom = nom;
-    } 
+    }
 
     public void setDescription(String description) {
         this.description = description;
-    } 
+    }
 
     public void setCreator(User user) {
         this.creator = user;
-    } 
+    }
 
     public void setColumns(Set<ColumnDto> columns) {
         this.colums = columns;
-    } 
+    }
 
 }

@@ -1,9 +1,8 @@
-package com.univ.kandan.controllers;
+package com.univ.kanban.controllers;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,23 +13,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.univ.kandan.dto.KanbanDto;
-import com.univ.kandan.model.Kanban;
-import com.univ.kandan.model.User;
-import com.univ.kandan.service.KanbanService;
+import com.univ.kanban.dto.KanbanDto;
+import com.univ.kanban.models.Kanban;
+import com.univ.kanban.models.User;
+import com.univ.kanban.services.KanbanService;
 
 @Controller
 @RequestMapping("/kanbans")
 public class KanbanController {
-    
+
     private final KanbanService kanbanService;
-  
+
     public KanbanController(KanbanService kanbanService) {
         this.kanbanService = kanbanService;
     }
 
     @GetMapping("/{id}")
-    public String GetKanban(@PathVariable(value = "id")Long id, Model model) {
+    public String GetKanban(@PathVariable(value = "id") Long id, Model model) {
         Kanban kanban = kanbanService.findById(id);
         model.addAttribute("kanban", kanban);
         return "kanban/kanban";
@@ -46,12 +45,10 @@ public class KanbanController {
 
     @PostMapping("/save")
     public String save(
-        @ModelAttribute("kanbanDto") @Valid KanbanDto kanbanDto,
-        HttpServletRequest request,
-        Errors errors) 
-    {
+            @ModelAttribute("kanbanDto") @Valid KanbanDto kanbanDto,
+            HttpServletRequest request,
+            Errors errors) {
         Kanban kanban = kanbanService.create(kanbanDto);
-        return "redirect:/kanbans/"  + kanban.getId();
+        return "redirect:/kanbans/" + kanban.getId();
     }
-
 }

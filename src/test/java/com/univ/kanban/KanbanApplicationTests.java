@@ -1,10 +1,10 @@
-package com.univ.kandan;
+package com.univ.kanban;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class KandanApplicationTests {
+class KanbanApplicationTests {
 
 	@Test
 	void contextLoads() {

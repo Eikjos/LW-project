@@ -1,4 +1,4 @@
-package com.univ.kandan.exceptions;
+package com.univ.kanban.exceptions;
 
 public class UserAlreadyExistException extends Exception {
 
