@@ -35,12 +35,7 @@ public class User implements Comparable<User> {
     @Column(name = "Password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "user_kanban",
-        joinColumns = {@JoinColumn(name = "user_id")},
-        inverseJoinColumns = {@JoinColumn(name = "kanban_id")}
-    )
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "members")
     private Set<Kanban> kanbans = new TreeSet<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
@@ -55,5 +50,9 @@ public class User implements Comparable<User> {
     @Override
     public int compareTo(User obj) {
         return this.id.compareTo(obj.id);
+    }
+
+    public int hashCode() {
+        return this.id.hashCode();
     }
 }
