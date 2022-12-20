@@ -13,7 +13,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Data
 @Entity
-public class Task implements Comparable<Task>{
+public class Task implements Comparable<Task> {
     
     @Id
     @GeneratedValue
@@ -33,11 +33,15 @@ public class Task implements Comparable<Task>{
     @Fetch(FetchMode.JOIN)
     private KanbanColumn column;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @Fetch(FetchMode.JOIN)
     private User user;
 
     public int compareTo(Task task) {
         return this.order.compareTo(task.order);
+    }
+
+    public int hashCode() {
+        return this.id.hashCode();
     }
 }

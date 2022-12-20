@@ -7,7 +7,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Entity;
@@ -40,5 +39,9 @@ public class KanbanColumn implements Comparable<KanbanColumn>{
 
     public int compareTo(KanbanColumn col) {
         return this.order.compareTo(col.order);
+    }
+
+    public int hashCode() {
+        return this.id.hashCode();
     }
 }

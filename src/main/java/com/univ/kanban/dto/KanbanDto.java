@@ -16,6 +16,8 @@ public class KanbanDto {
         colums = new TreeSet<ColumnDto>();
         colums.add(new ColumnDto("Stories", 0));
         colums.add(new ColumnDto("Terminés", 1));
+        members = new TreeSet<User>();
+        members.add(user);
         creator = user;
     }
 
@@ -27,6 +29,8 @@ public class KanbanDto {
 
     @NotNull
     private User creator;
+
+    private Set<User> members;
 
     @NotNull
     private Set<ColumnDto> colums;
@@ -41,6 +45,10 @@ public class KanbanDto {
 
     public User getCreator() {
         return creator;
+    }
+
+    public Set<User> getMembers() {
+        return members;
     }
 
     public Set<ColumnDto> getColumns() {
@@ -61,6 +69,10 @@ public class KanbanDto {
 
     public void setColumns(Set<ColumnDto> columns) {
         this.colums = columns;
+    }
+
+    public void SetMembers(Set<User> users) {
+        this.members = users;
     }
 
 }

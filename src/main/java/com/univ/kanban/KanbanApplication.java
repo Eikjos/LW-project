@@ -68,6 +68,8 @@ public class KanbanApplication {
             kanban1.setCreator(user1);
             kanban1.setPublic(true);
 
+            kanban1 = kanbanRepository.save(kanban1);
+
             KanbanColumn column = new KanbanColumn();
             column.setNom("truc a faire");
             column.setOrder(1);
@@ -78,11 +80,11 @@ public class KanbanApplication {
             task.setNom("Baiser Kevin");
             task.setDescription("Il faut bien baiser le gros Kevin");
             task.setOrder(1);
+            task.setColumn(column);
             task = taskRepository.save(task);
             HashSet<Task> tasks = new HashSet<>();
             tasks.add(task);
-
-            column.setTasks(tasks);
+            
             HashSet<KanbanColumn> columns = new HashSet<>();
             columns.add(column);
             kanban1.setColumns(columns);
@@ -93,7 +95,6 @@ public class KanbanApplication {
             kanban2.setCreator(user2);
             kanban2.setPublic(false);
 
-            kanban1 = kanbanRepository.save(kanban1);
             kanban2 = kanbanRepository.save(kanban2);
 
             kanban1.addMember(user2);

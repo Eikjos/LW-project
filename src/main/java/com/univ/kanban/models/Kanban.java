@@ -1,8 +1,10 @@
 package com.univ.kanban.models;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,13 +16,17 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Data
 @Entity
 public class Kanban implements Comparable<Kanban> {
+
+  public Kanban() {
+    members = new HashSet<User>();
+    columns = new HashSet<KanbanColumn>();
+  }
 
   @Id
   @GeneratedValue
@@ -41,17 +47,18 @@ public class Kanban implements Comparable<Kanban> {
   private User creator;
 
   @ManyToMany(mappedBy = "kanbans")
-  private Set<User> members = new TreeSet<>();
+  private Set<User> members;
 
-  @OneToMany(mappedBy = "kanban", orphanRemoval = true)
-  @Cascade({ CascadeType.ALL, CascadeType.DELETE_ORPHAN })
+  @OneToMany(mappedBy = "kanban", orphanRemoval = true, cascade = {CascadeType.ALL})
   private Set<KanbanColumn> columns;
 
   // ---
 
   public void setChildren(Set<KanbanColumn> children) {
     this.columns.clear();
-    this.columns.addAll(children);
+    if (children != null) {
+      this.columns.addAll(children);
+    }
 }
 
   public void addMember(User user) {
