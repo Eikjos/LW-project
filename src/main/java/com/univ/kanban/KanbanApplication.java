@@ -1,5 +1,9 @@
 package com.univ.kanban;
 
+import com.univ.kanban.models.KanbanColumn;
+import com.univ.kanban.models.Task;
+import com.univ.kanban.repositories.ColumnRepository;
+import com.univ.kanban.repositories.TaskRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +15,8 @@ import com.univ.kanban.models.Kanban;
 import com.univ.kanban.models.User;
 import com.univ.kanban.repositories.KanbanRepository;
 import com.univ.kanban.repositories.UserRepository;
+
+import java.util.HashSet;
 
 @SpringBootApplication
 public class KanbanApplication {
@@ -25,11 +31,11 @@ public class KanbanApplication {
     }
 
     @Bean
-    public CommandLineRunner seedApplication(UserRepository userRepository, KanbanRepository kanbanRepository,
+    public CommandLineRunner seedApplication(UserRepository userRepository, KanbanRepository kanbanRepository, ColumnRepository columnRepository, TaskRepository taskRepository,
             PasswordEncoder passwordEncoder) {
         return (args) -> {
             loadUserData(userRepository, passwordEncoder);
-            loadKanbanData(kanbanRepository, userRepository);
+            loadKanbanData(kanbanRepository, userRepository, columnRepository, taskRepository);
         };
     }
 
@@ -52,7 +58,7 @@ public class KanbanApplication {
         }
     }
 
-    private void loadKanbanData(KanbanRepository kanbanRepository, UserRepository userRepository) {
+    private void loadKanbanData(KanbanRepository kanbanRepository, UserRepository userRepository, ColumnRepository columnRepository, TaskRepository taskRepository) {
         if (kanbanRepository.count() == 0 && userRepository.count() != 0) {
             User user1 = userRepository.findByEmail("thomas.hamelin@univ-rouen.fr").orElseThrow();
             User user2 = userRepository.findByEmail("lucas.ficker@univ-rouen.fr").orElseThrow();
@@ -61,6 +67,25 @@ public class KanbanApplication {
             kanban1.setDescription("Ceci est le premier projet de l'application kanban que nous venons de réaliser");
             kanban1.setCreator(user1);
             kanban1.setPublic(true);
+
+            KanbanColumn column = new KanbanColumn();
+            column.setNom("truc a faire");
+            column.setOrder(1);
+            column.setKanban(kanban1);
+            column = columnRepository.save(column);
+
+            Task task = new Task();
+            task.setNom("Baiser Kevin");
+            task.setDescription("Il faut bien baiser le gros Kevin");
+            task.setOrder(1);
+            task = taskRepository.save(task);
+            HashSet<Task> tasks = new HashSet<>();
+            tasks.add(task);
+
+            column.setTasks(tasks);
+            HashSet<KanbanColumn> columns = new HashSet<>();
+            columns.add(column);
+            kanban1.setColumns(columns);
 
             Kanban kanban2 = new Kanban();
             kanban2.setNom("Projet 2");

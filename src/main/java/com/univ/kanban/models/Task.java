@@ -24,7 +24,7 @@ public class Task implements Comparable<Task>{
     public String nom;
 
     @Column(name = "description")
-    public String descirption;
+    public String description;
 
     @Column(name = "order")
     public Integer order;
