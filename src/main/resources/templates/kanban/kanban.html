@@ -19,12 +19,18 @@
 </header>
 <div class="flex flex-row justify-center items-baseline">
     <div class="w-1/3 justify-center mt-10 text-2xl bg-slate-500 text-center text-white p-2 rounded-lg">
-        <h1 th:text="${kanban.nom}"></h1>
-    </div>
-    <div th:each="columns : ${kanban.columns}" class="card w-1/5 h-44 mr-4 my-4 bg-slate-300 p-4 rounded-2xl overflow-y-hidden hover:w-1/4 hover:h-52 ease-in transition-all">
-        <h2 th:text="columns.nom"></h2>
-        <div th:each="tasks : ${columns.tasks}" class="card w-1/5 h-44 mr-4 my-4 bg-slate-300 p-4 rounded-2xl overflow-y-hidden hover:w-1/4 hover:h-52 ease-in transition-all">
-            <h2 th:text="tasks.nom"></h2>
+            <h1 th:text="${kanban.nom}"></h1>
+        <div th:each="columns : ${kanban.columns}" class="card h-44 mr-4 my-4 bg-slate-300 p-4 rounded-2xl overflow-y-hidden">
+            <h2 th:text="${columns.nom}"></h2>
+            <div th:each="tasks : ${columns.tasks}" class="flex flex-row rounded-2xl">
+                <div class="basis-1/2 bg-slate-600 rounded-2xl">
+                    <p th:text="${tasks.nom}"></p>
+                </div>
+                <div class="basis-1/2 bg-slate-700 rounded-2xl" >
+                    <span th:if="${tasks.user == null}"></span>
+                    <span th:unless="${tasks.user == null}"><p th:text="${tasks.user.nom}"></p></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
