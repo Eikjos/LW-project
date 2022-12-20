@@ -77,16 +77,8 @@ public class KanbanApplication {
             kanban2.addMember(user2);
             kanban2.addMember(user1);
 
-            user1.addKanban(kanban2);
-            user1.addKanban(kanban1);
-
-            user2.addKanban(kanban2);
-            user2.addKanban(kanban1);
-
             kanbanRepository.save(kanban1);
             kanbanRepository.save(kanban2);
-            userRepository.save(user1);
-            userRepository.save(user2);
         }
     }
 }

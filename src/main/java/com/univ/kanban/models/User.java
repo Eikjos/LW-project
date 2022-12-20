@@ -35,10 +35,9 @@ public class User implements Comparable<User> {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable
     private Set<Kanban> kanbans = new TreeSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Task> tasks = new TreeSet<>();
 
     // ---

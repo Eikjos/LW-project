@@ -3,7 +3,17 @@ package com.univ.kanban.models;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Column;
+
 import lombok.Data;
 
 @Data
@@ -25,6 +35,7 @@ public class KanbanColumn implements Comparable<KanbanColumn>{
     private Kanban kanban;
 
     @OneToMany(mappedBy = "column", orphanRemoval = true)
+    @Cascade({ CascadeType.ALL, CascadeType.DELETE_ORPHAN })
     private Set<Task> tasks = new HashSet<>();
 
     public int compareTo(KanbanColumn col) {

@@ -12,6 +12,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 import lombok.Data;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -41,9 +44,15 @@ public class Kanban implements Comparable<Kanban> {
   private Set<User> members = new TreeSet<>();
 
   @OneToMany(mappedBy = "kanban", orphanRemoval = true)
+  @Cascade({ CascadeType.ALL, CascadeType.DELETE_ORPHAN })
   private Set<KanbanColumn> columns;
 
   // ---
+
+  public void setChildren(Set<KanbanColumn> children) {
+    this.columns.clear();
+    this.columns.addAll(children);
+}
 
   public void addMember(User user) {
     members.add(user);
