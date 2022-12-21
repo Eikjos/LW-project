@@ -19,6 +19,11 @@
     </header>
     <div class="w-1/3 mx-auto mt-10 text-2xl bg-slate-500 text-center text-white p-2 rounded-lg">
         <h1>Création de kanban</h1>
+        <form th:action="@{/kanbans/create}" method="POST" th:object="${KanbanDto}" class="flex flex-col justify-center">
+            <input  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4" placeholder="Nom du projet" type="text" name="prenom" th:field="*{nom}" />
+            <input  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4" placeholder="Nom " type="text" name="nom" th:field="*{nom}"/>
+            <input type="submit" value="S'enregistrez" class="mx-auto bg-white text-black p-3 rounded-lg"/>
+        </form>
     </div>
     </div>
   </body>

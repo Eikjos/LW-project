@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src=""></script>
 </head>
 <body>
 <header class="bg-emerald-700 py-5 flex justify-center items-center">
@@ -21,10 +22,10 @@
     <h1 class="text-2xl text-center my-2" th:text="${kanban.nom}"></h1>
 
   <div class="flex justify-center bg-slate-300 mx-2 rounded">
-    <div th:each="column : ${kanban.columns}" class="gap-y-2 basis-1/2 mx-2 my-2 bg-slate-400 rounded">
+    <div th:each="column : ${kanban.columns}" class="gap-y-2 basis-1/2 mx-2 my-2 bg-slate-400 rounded" th:classappend="${'order-'+column.order}">
         <h2 class="bg-slate-800 px-2 py-1 rounded text-2xl text-center my-2" th:text="${column.nom}"></h2>
-        <div class="flex flex-col gap-16">
-            <div th:each="task : ${column.tasks}" class="flex">
+        <div class="drag_drop_target flex flex-col gap-16">
+            <div th:each="task : ${column.tasks}" class="drag_drop_task flex" th:classappend="${'order-'+task.order}">
                 <p class="basis-1/2 bg-slate-600 rounded my-1 text-center" th:text="${task.nom}"></p>
                 <span class="basis-1/2 bg-slate-700 rounded my-1 text-center" th:if="${task.user == null}"><p></p></span>
                 <span class="basis-1/2 bg-slate-700 rounded my-1 text-center" th:unless="${task.user == null}"><p th:text="${user.nom}"></p></span>

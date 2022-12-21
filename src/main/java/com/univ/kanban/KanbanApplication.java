@@ -74,13 +74,13 @@ public class KanbanApplication {
 
             KanbanColumn column = new KanbanColumn();
             column.setNom("Truc a faire");
-            column.setOrder(1);
+            column.setOrder(2);
             column.setKanban(kanban1);
             column = columnRepository.save(column);
 
             KanbanColumn column2 = new KanbanColumn();
             column2.setNom("Il faut enculer le soldat Kevin");
-            column2.setOrder(2);
+            column2.setOrder(1);
             column2.setKanban(kanban1);
             column2 = columnRepository.save(column2);
 
