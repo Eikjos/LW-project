@@ -35,7 +35,7 @@
             <input type="hidden" th:field="*{columns[__${iterStat.index}__].order}" value="[[${iterStat.count}]]" th:id="${'columnOrder' + iterStat.count}"/>
           </div>
         </div>
-        <input type="submit" value="Enregiter" class="mx-auto bg-white text-black p-3 rounded-lg"/>
+        <input type="submit" value="Enregistrer" class="mx-auto bg-white text-black p-3 rounded-lg"/>
       </form>
     </div>
     <script>
@@ -71,11 +71,11 @@
         input.classList.add("ml-1");
         input.classList.add("p-2");
         input.classList.add("text-gray-700");
-        input.setAttribute("th:field", "*{columns[" + columnCount + "].nom}");
+        input.setAttribute("th:field", "*{columns[__" + columnCount + "__].nom}");
         var inputHidden = document.createElement("input");
         inputHidden.type = "hidden";
         inputHidden.value = columnCount;
-        inputHidden.setAttribute("th:field", "*{columns[" + columnCount + "].order}");
+        inputHidden.setAttribute("th:field", "*{columns[__" + columnCount + "__].order}");
         div.appendChild(label);
         div.appendChild(input);
         div.appendChild(inputHidden);
