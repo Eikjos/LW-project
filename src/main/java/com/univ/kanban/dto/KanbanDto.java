@@ -12,13 +12,13 @@ import lombok.Data;
 @Data
 public class KanbanDto {
 
-    public KanbanDto(User user) {
+    public KanbanDto() {
+        super();
         columns = new TreeSet<ColumnDto>();
-        columns.add(new ColumnDto("Stories", 0));
-        columns.add(new ColumnDto("Terminés", 1));
-        members = new TreeSet<User>();
-        members.add(user);
-        creator = user;
+        ColumnDto col1 = new ColumnDto("Stories", 0);
+        ColumnDto col2 = new ColumnDto("Terminés", 1);
+        columns.add(col1);
+        columns.add(col2);
     }
 
     @NotNull

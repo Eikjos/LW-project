@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.univ.kanban.dto.ColumnDto;
 import com.univ.kanban.dto.KanbanDto;
 import com.univ.kanban.models.KanbanColumn;
+import com.univ.kanban.models.User;
 import com.univ.kanban.models.Kanban;
 import com.univ.kanban.repositories.ColumnRepository;
 import com.univ.kanban.repositories.KanbanRepository;
@@ -37,8 +38,10 @@ public class KanbanService {
         return kanbanRepository.findById(id);
     }
 
-    public Kanban create(KanbanDto kanbanDto) {
+    public Kanban create(KanbanDto kanbanDto, User user) {
         Kanban kanban = new Kanban();
+        kanban.setCreator(user);
+        kanban.getMembers().add(user);
         beforeCreate(kanbanDto, kanban);
         kanban = kanbanRepository.save(kanban);
         afterCreate(kanbanDto, kanban);

@@ -1,5 +1,7 @@
 package com.univ.kanban.dto;
 
+import com.mysql.cj.x.protobuf.MysqlxCrud.Column;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,9 @@ public class ColumnDto implements Comparable<ColumnDto> {
 
     @Override
     public int compareTo(ColumnDto col) {
+        if (col == null) {
+            return 1;
+        }
         return order.compareTo(col.order);
     }
 
@@ -29,5 +34,13 @@ public class ColumnDto implements Comparable<ColumnDto> {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public Integer getOrder() {
+        return this.order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }
