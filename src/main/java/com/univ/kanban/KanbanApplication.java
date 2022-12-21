@@ -73,10 +73,16 @@ public class KanbanApplication {
             kanban1 = kanbanRepository.save(kanban1);
 
             KanbanColumn column = new KanbanColumn();
-            column.setNom("truc a faire");
+            column.setNom("Truc a faire");
             column.setOrder(1);
             column.setKanban(kanban1);
             column = columnRepository.save(column);
+
+            KanbanColumn column2 = new KanbanColumn();
+            column2.setNom("Il faut enculer le soldat Kevin");
+            column2.setOrder(2);
+            column2.setKanban(kanban1);
+            column2 = columnRepository.save(column2);
 
             Task task = new Task();
             task.setNom("Baiser Kevin");
@@ -89,6 +95,7 @@ public class KanbanApplication {
 
             HashSet<KanbanColumn> columns = new HashSet<>();
             columns.add(column);
+            columns.add(column2);
             kanban1.setColumns(columns);
 
             Kanban kanban2 = new Kanban();
