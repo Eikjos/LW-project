@@ -22,4 +22,12 @@ public class ColumnDto implements Comparable<ColumnDto> {
     public int compareTo(ColumnDto col) {
         return order.compareTo(col.order);
     }
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 }

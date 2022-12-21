@@ -19,12 +19,52 @@
     </header>
     <div class="w-1/3 mx-auto mt-10 text-2xl bg-slate-500 text-center text-white p-2 rounded-lg">
         <h1>Création de kanban</h1>
-        <form th:action="@{/kanbans/create}" method="POST" th:object="${KanbanDto}" class="flex flex-col justify-center">
-            <input  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4" placeholder="Nom du projet" type="text" name="prenom" th:field="*{nom}" />
-            <input  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4" placeholder="Nom " type="text" name="nom" th:field="*{nom}"/>
-            <input type="submit" value="S'enregistrez" class="mx-auto bg-white text-black p-3 rounded-lg"/>
-        </form>
     </div>
+    <div class="w-1/2 mx-auto mt-10 bg-emerald-700 p-5">
+      <form th:action="@{/kanbans/save}" method="POST" th:object="${kanbanDto}" class="flex flex-col justify-center">
+        <input class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4 rounded-xl" placeholder="Nom du projet" type="text" name="nom" th:field="*{nom}" />
+        <textarea class="form-control w-full mb-4 rounded-xl text-gray-700 p-2" name="description" placeholder="Description du projet" th:field="*{description}" />
+        <div class="flex justify-between mb-2 items-center">
+          <label>Colonnes :</label>
+          <button onclick="addColumn()" type="button" class="p-2 bg-slate-400 rounded-xl text-center text-white">Ajouter une colonne</button>
+        </div>
+        <div th:each="colonne,iterStat : *{columns}" class="columnDto">
+          <div class="column-input mb-4">
+            <label th:id="${'columnlabel' + iterStat.count}">Colonne [[${iterStat.count}]] :</label>
+            <input type="text" th:field="*{columns[__${iterStat.index}__].nom}" th:id="${'column' + iterStat.count}" class="column-name-[[${iterStat.count}]]"/>
+          </div>
+        </div>
+        <input type="submit" value="S'enregistrez" class="mx-auto bg-white text-black p-3 rounded-lg"/>
+      </form>
     </div>
+    <script>
+      function addColumn() {
+        var columnCount = document.getElementsByClassName("column-input").length;
+        if (columnCount + 1 > 10) {
+          var div = document.querySelector("div > form:first-child");
+          var button = document.getElementsByTagName("button");
+          console.log(div); 
+          return;
+        }
+        var lastLabel = document.getElementById("columnlabel" + columnCount);
+        lastLabel.id = "columnlabel" + (columnCount + 1);
+        lastLabel.innerHTML = "Colonne " + (columnCount + 1) + " :";
+        console.labelLast;
+        var div = document.createElement("div");
+        div.classList.add("column-input");
+        div.classList.add("mb-4")
+        var label = document.createElement("label");
+        label.innerHTML = "Colonne " + columnCount + " :";
+        var input = document.createElement("input");
+        input.type = "text";
+        input.name = "Colonne" + (columnCount);
+        input.classList.add("ml-1")
+        input.setAttribute("th:field", "*{columns[" + columnCount + "].nom}");
+        div.appendChild(label);
+        div.appendChild(input);
+        var form = document.querySelector(".columnDto")
+        form.appendChild(div);
+      }
+    </script>
   </body>
 </html>

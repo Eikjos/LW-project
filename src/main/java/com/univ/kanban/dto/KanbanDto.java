@@ -13,9 +13,9 @@ import lombok.Data;
 public class KanbanDto {
 
     public KanbanDto(User user) {
-        colums = new TreeSet<ColumnDto>();
-        colums.add(new ColumnDto("Stories", 0));
-        colums.add(new ColumnDto("Terminés", 1));
+        columns = new TreeSet<ColumnDto>();
+        columns.add(new ColumnDto("Stories", 0));
+        columns.add(new ColumnDto("Terminés", 1));
         members = new TreeSet<User>();
         members.add(user);
         creator = user;
@@ -33,7 +33,7 @@ public class KanbanDto {
     private Set<User> members;
 
     @NotNull
-    private Set<ColumnDto> colums;
+    private Set<ColumnDto> columns;
 
     public String getNom() {
         return nom;
@@ -52,7 +52,7 @@ public class KanbanDto {
     }
 
     public Set<ColumnDto> getColumns() {
-        return colums;
+        return columns;
     }
 
     public void setNom(String nom) {
@@ -68,7 +68,7 @@ public class KanbanDto {
     }
 
     public void setColumns(Set<ColumnDto> columns) {
-        this.colums = columns;
+        this.columns = columns;
     }
 
     public void SetMembers(Set<User> users) {
