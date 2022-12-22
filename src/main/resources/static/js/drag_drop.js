@@ -22,7 +22,5 @@ function drop(e) {
     // Ajoute l'élément en train d'être glissé comme enfant du div de destination
     e.target.appendChild(draggableElement);
     const id_column = e.target.id;
-    prompt(id);
-    prompt(e);
     fetch(`/tasks/${id.slice(4)}/column/${id_column.slice(6)}`, {method: "PUT"}).then(() => location.reload())
 }
