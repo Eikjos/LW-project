@@ -21,7 +21,7 @@
 <div class="bg-slate-500 max-w-screen-lg mt-10 rounded-lg mx-auto text-white my-2">
     <h1 class="text-2xl text-center my-2" th:text="${kanban.nom}"></h1>
 
-  <div class="flex justify-center bg-slate-300 mx-2 rounded">
+  <div class="flex justify-center bg-slate-500 mx-2 rounded">
     <div th:each="column : ${kanban.columns}" class="gap-y-2 basis-1/2 mx-2 my-2 bg-slate-400 rounded" th:classappend="${'order-'+column.order}" th:id="${'column'+column.id}">
         <h2 class="bg-slate-800 px-2 py-1 rounded text-2xl text-center my-2" th:text="${column.nom}"></h2>
         <div class="drag_drop_target flex flex-col gap-1 min-h-[50%]" draggable="false" ondrop="drop(event)" ondragover="dragOver(event)" th:id="${'column'+column.id}">
