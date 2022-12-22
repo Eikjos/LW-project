@@ -6,6 +6,7 @@ import java.util.TreeSet;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.univ.kanban.models.User;
 import lombok.Data;
 
@@ -15,16 +16,15 @@ public class KanbanDto {
     public KanbanDto() {
         super();
         columns = new TreeSet<ColumnDto>();
-        ColumnDto col1 = new ColumnDto("Stories", 0);
-        ColumnDto col2 = new ColumnDto("Terminés", 1);
-        columns.add(col1);
-        columns.add(col2);
+        members = new TreeSet<User>(); 
     }
 
     @NotNull
     @NotEmpty
+    @JsonProperty
     private String nom;
 
+    @JsonProperty
     private String description;
 
     @NotNull
@@ -33,6 +33,7 @@ public class KanbanDto {
     private Set<User> members;
 
     @NotNull
+    @JsonProperty
     private Set<ColumnDto> columns;
 
     public String getNom() {
@@ -74,5 +75,4 @@ public class KanbanDto {
     public void SetMembers(Set<User> users) {
         this.members = users;
     }
-
 }

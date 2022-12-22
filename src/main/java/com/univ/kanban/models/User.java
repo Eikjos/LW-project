@@ -35,7 +35,7 @@ public class User implements Comparable<User> {
     @Column(name = "Password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "members")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "members")
     private Set<Kanban> kanbans = new TreeSet<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)

@@ -39,20 +39,7 @@ public class KanbanController {
     }
 
     @GetMapping("/create")
-    public String create(Model model) {
-        KanbanDto dto = new KanbanDto();
-        model.addAttribute("kanbanDto", dto);
+    public String create() {
         return "kanban/create";
-    }
-
-    @PostMapping("/save")
-    public String save(
-            @ModelAttribute("kanbanDto") KanbanDto kanbanDto,
-            HttpServletRequest request,
-            Errors errors,
-            Authentication authentication) {
-        User user = usersService.findByEmail(authentication.getName()).orElseThrow();
-        Kanban kanban = kanbanService.create(kanbanDto, user);
-        return "redirect:/kanbans/" + kanban.getId();
     }
 }

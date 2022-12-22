@@ -21,30 +21,82 @@
         <h1>Création de kanban</h1>
     </div>
     <div class="w-1/2 mx-auto mt-10 bg-emerald-700 p-5">
-      <form th:action="@{/kanbans/save}" method="POST" th:object="${kanbanDto}" class="flex flex-col justify-center" id="form">
-        <input class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4 rounded-xl" placeholder="Nom du projet" type="text" name="nom" th:field="*{nom}" />
-        <textarea class="form-control w-full mb-4 rounded-xl text-gray-700 p-2" name="description" placeholder="Description du projet" th:field="*{description}" />
+      <form class="flex flex-col justify-center" id="form">
+        <input class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white mb-4 rounded-xl" placeholder="Nom du projet" type="text" name="nom" />
+        <textarea class="from-control w-full mb-4 rounded-xl text-gray-700 p-2" name="description" rows="5" cols="40" placeholder="Description du projet"></textarea>
         <div class="flex justify-between mb-2 items-center text-white" id = "button-div">
           <label class="text-xl font-bold">Colonnes :</label>
-          <button id="button-add" onclick="addColumn()" type="button" class="p-2 bg-slate-400 rounded-xl text-center text-white">Ajouter une colonne</button>
+          <button id="button-add" type="button" onclick="addColumn()" class="p-2 bg-slate-400 rounded-xl text-center text-white">Ajouter une colonne</button>
         </div>
-        <div th:each="colonne,iterStat : *{columns}" class="columnDto text-white">
+        <div class="columnDto text-white">
           <div class="column-input mb-4">
-            <label th:id="${'columnlabel' + iterStat.count}">Colonne [[${iterStat.count}]] :</label>
-            <input type="text" th:field="*{columns[__${iterStat.index}__].nom}" th:id="${'column' + iterStat.count}" class="column-name-[[${iterStat.count}]] text-gray-700 p-2 bg-white" />
-            <input type="hidden" th:field="*{columns[__${iterStat.index}__].order}" value="[[${iterStat.count}]]" th:id="${'columnOrder' + iterStat.count}"/>
+            <label>Colonne 1 :</label>
+            <input type="text" name="colums[1].nom" class="text-gray-700 p-2 bg-white" value="Stories" disabled/>
+            <input type="hidden" name="colums[1].order" value="0"/>
+          </div>
+        </div>
+        <div class="text-white">
+          <div class="column-input mb-4">
+            <label id="columnlabel2">Colonne 2 :</label>
+            <input type="text" name="colums[2].nom" class="text-gray-700 p-2 bg-white"  value="Terminés" id="column2" disabled/>
+            <input type="hidden" name="columns[2].order" value="1" id="columnOrder2"/>
           </div>
         </div>
         <input type="submit" value="Enregistrer" class="mx-auto bg-white text-black p-3 rounded-lg"/>
       </form>
     </div>
-    <script>
+    <script th:inline="javascript">
       var columnCount = document.getElementsByClassName("column-input").length;
-      var input0 = document.getElementById("column1");
       var input1 = document.getElementById("column" + columnCount); 
-      input0.disabled = true;
-      input1.disabled = true;
+      
 
+      var form = document.getElementById("form");
+      form.addEventListener('submit', (e) => onSubmit(e));
+
+
+      function onSubmit(e) {
+        e.preventDefault();
+        var data = new FormData(e.target);
+
+        var columns = [];
+
+        columns[0] = {
+          nom : 'Stories',
+          order : 0
+        }
+
+        columns[columnCount] = {
+          nom : 'Terminés',
+          order : columnCount
+        }
+
+        for (var i = 2; i <= columnCount; ++i) {
+          columns[i - 1] = {
+            nom : data.get('columns[' + i + '].nom'),
+            order : parseInt(data.get('columns[' + i + '].order'), 10) - 1
+          }
+        }
+
+        var d = {
+            nom: data.get('nom'),
+            description : data.get('description'),
+            colums : columns
+        };
+
+        console.log(d)
+
+        fetch('save', {
+          method : 'post',
+          headers :{
+            'Content-Type' : 'application/json'
+          },
+          body : JSON.stringify(d)
+        }).then((r) => {
+          r.text().then(a => window.location.replace('/kanbans/' + a ))
+          window.location.reload();
+        });
+      }
+      
       function addColumn() {
         var columnCount = document.getElementsByClassName("column-input").length;
         if (columnCount + 1 > 10) {
@@ -60,22 +112,23 @@
         var inputHiddenLast = document.getElementById("columnOrder" + columnCount);
         inputHiddenLast.id = "columnOrder" + (columnCount + 1);
         inputHiddenLast.value = (columnCount + 1);
+        inputHiddenLast.name = "columns[" + (columnCount + 1) + "].order";
+        input1.name =  "columns[" + (columnCount + 1) + "].nom";
         var div = document.createElement("div");
         div.classList.add("column-input");
-        div.classList.add("mb-4")
+        div.classList.add("mb-4");
         var label = document.createElement("label");
         label.innerHTML = "Colonne " + columnCount + " :";
         var input = document.createElement("input");
         input.type = "text";
-        input.name = "Colonne" + (columnCount);
+        input.name = "columns[" + (columnCount) + "].nom";
         input.classList.add("ml-1");
         input.classList.add("p-2");
         input.classList.add("text-gray-700");
-        input.setAttribute("th:field", "*{columns[__" + columnCount + "__].nom}");
         var inputHidden = document.createElement("input");
         inputHidden.type = "hidden";
         inputHidden.value = columnCount;
-        inputHidden.setAttribute("th:field", "*{columns[__" + columnCount + "__].order}");
+        inputHidden.name = "columns[" + (columnCount) + "].order";
         div.appendChild(label);
         div.appendChild(input);
         div.appendChild(inputHidden);

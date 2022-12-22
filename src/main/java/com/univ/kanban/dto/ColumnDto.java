@@ -1,5 +1,6 @@
 package com.univ.kanban.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Column;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -15,9 +16,11 @@ public class ColumnDto implements Comparable<ColumnDto> {
 
     @NotNull
     @NotEmpty
+    @JsonProperty
     private String nom;
 
     @NotNull
+    @JsonProperty
     private Integer order;
 
     @Override
