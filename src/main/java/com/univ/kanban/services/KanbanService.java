@@ -40,8 +40,6 @@ public class KanbanService {
 
     public Kanban create(KanbanDto kanbanDto, User user) {
         Kanban kanban = new Kanban();
-        kanban.setNom(kanbanDto.getNom());
-        kanban.setDescription(kanbanDto.getDescription());
         kanban.setCreator(user);
         beforeCreate(kanbanDto, kanban);
         kanban = kanbanRepository.save(kanban);
@@ -55,12 +53,11 @@ public class KanbanService {
 
     public void afterCreate(KanbanDto kanbanDto, Kanban kanban) {
         for (ColumnDto col : kanbanDto.getColumns()) {
-            KanbanColumn column = new KanbanColumn();
-            column.setNom(col.getNom());
-            column.setOrder(col.getOrder());
-            column.setKanban(kanban);
-            columnRepository.save(column);
+            if (col != null) {
+                KanbanColumn column = modelMapper.map(col, KanbanColumn.class);
+                column.setKanban(kanban);
+                columnRepository.save(column);
+            }
         }
     }
-
 }

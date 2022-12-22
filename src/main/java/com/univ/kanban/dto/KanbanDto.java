@@ -2,20 +2,26 @@ package com.univ.kanban.dto;
 
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.univ.kanban.models.User;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
 public class KanbanDto {
 
     public KanbanDto() {
         super();
-        columns = new TreeSet<ColumnDto>();
+        columns = new ArrayList<ColumnDto>();
         members = new TreeSet<User>(); 
     }
 
@@ -34,7 +40,7 @@ public class KanbanDto {
 
     @NotNull
     @JsonProperty
-    private Set<ColumnDto> columns;
+    private List<ColumnDto> columns;
 
     public String getNom() {
         return nom;
@@ -52,7 +58,7 @@ public class KanbanDto {
         return members;
     }
 
-    public Set<ColumnDto> getColumns() {
+    public List<ColumnDto> getColumns() {
         return columns;
     }
 
@@ -68,7 +74,7 @@ public class KanbanDto {
         this.creator = user;
     }
 
-    public void setColumns(Set<ColumnDto> columns) {
+    public void setColumns(ArrayList<ColumnDto> columns) {
         this.columns = columns;
     }
 

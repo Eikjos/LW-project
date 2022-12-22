@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.univ.kanban.dto.KanbanDto;
 import com.univ.kanban.models.Kanban;
-import com.univ.kanban.models.User;
 import com.univ.kanban.services.KanbanService;
 import com.univ.kanban.services.UsersService;
 
