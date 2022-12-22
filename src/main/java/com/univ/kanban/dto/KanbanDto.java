@@ -78,7 +78,7 @@ public class KanbanDto {
         this.columns = columns;
     }
 
-    public void SetMembers(Set<User> users) {
+    public void setMembers(Set<User> users) {
         this.members = users;
     }
 }
