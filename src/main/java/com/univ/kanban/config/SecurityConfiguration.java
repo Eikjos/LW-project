@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,7 +35,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/css/*", "/fonts/*", "/img/*", "/js/*", "/favicon.png").permitAll()
+                        .requestMatchers("/css/*", "/fonts/*", "/img/*", "/static/js/*", "/favicon.png").permitAll()
                         .requestMatchers("/login", "/", "/register", "/users/save", "/kanbans/{id:[0-9]+}").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(login -> login
@@ -43,6 +44,7 @@ public class SecurityConfiguration {
                         .defaultSuccessUrl("/", true)
                         .failureUrl("/login?error")
                         .loginPage("/login"))
+                .csrf(AbstractHttpConfigurer::disable)
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .build();
     }
