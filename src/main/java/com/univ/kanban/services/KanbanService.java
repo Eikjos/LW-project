@@ -48,6 +48,10 @@ public class KanbanService {
         return kanban;
     }
 
+    public Kanban save(Kanban kanban) {
+        return kanbanRepository.save(kanban);
+    }
+
     protected void beforeCreate(KanbanDto kanbanDto, Kanban kanban) {
         return;
     }

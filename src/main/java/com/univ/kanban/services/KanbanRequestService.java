@@ -24,4 +24,12 @@ public class KanbanRequestService {
     public KanbanRequest save(KanbanRequest request) {
         return kanbanRequestRepository.save(request);
     }
+
+    public KanbanRequest findById(Long id) {
+        return kanbanRequestRepository.findById(id).orElseThrow();
+    }
+
+    public void delete(KanbanRequest request) {
+        kanbanRequestRepository.delete(request);
+    }
 }

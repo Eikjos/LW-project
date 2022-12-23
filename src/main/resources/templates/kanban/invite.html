@@ -32,13 +32,14 @@
   <th:block th:unless="${users.size() == 0}">
     <div class="w-1/2 mx-auto mt-10 bg-emerald-700 p-5">
         <form th:object="${kanbanRequestDto}" class="flex flex-col justify-center" id="form" method="POST" th:action="@{/kanban-request/invite}">
-          <select th:field="*{user}" name="user" class="rounded-xl" placeholder="Sélectionner un utilisateur">
-            <option value="" disabled selected hidden>Choisir un utilisateur</option>
-            <th:block th:each="user : ${users}">
-                <option th:value="${user.id}" th:text="${user.nom} + ${user.prenom}"></option>
-            </th:block>
-          </select>
-          <input type="submit" value="Inviter" class="mx-auto mt-10 bg-white text-black p-3 rounded-lg" />
+            <input type="hidden" th:field="*{kanban}" th:value="${kanbanRequestDto.kanban}" />
+            <select th:field="*{user}" name="user" class="rounded-xl" placeholder="Sélectionner un utilisateur">
+                <option value="" disabled selected hidden>Choisir un utilisateur</option>
+                <th:block th:each="user : ${users}">
+                    <option th:value="${user.id}" th:text="${user.nom} + ' ' +  ${user.prenom}"></option>
+                </th:block>
+            </select>
+            <input type="submit" value="Inviter" class="mx-auto mt-10 bg-white text-black p-3 rounded-lg" />
         </form>
       </div>
   </th:block>
