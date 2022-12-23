@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="/js/drag_drop.js"></script>
     <script type="text/javascript" src="/js/add_task.js"></script>
+    <script type="text/javascript" src="/js/task_description.js"></script>
+    <script type="text/javascript" src="/js/modify_task.js"></script>
 </head>
 <body>
 <header class="bg-emerald-700 py-5 flex justify-center items-center">
@@ -25,18 +27,18 @@
         <button class="bg-slate-500 p-3 rounded-xl mr-6 text-white">Supprimer le kanban</button>
     </form>
 </div>
-<div class="bg-slate-500 max-w-screen-lg mt-10 rounded-lg mx-auto text-white my-2">
+<div class="bg-slate-500 max-w-screen-lg mt-10 rounded-lg mx-auto text-white m-2">
     <h1 class="text-2xl text-center my-2" th:text="${kanban.nom}"></h1>
 
   <div class="flex justify-center bg-slate-500 mx-2 rounded">
     <div th:each="column : ${kanban.columns}" class="gap-y-2 basis-1/2 mx-2 my-2 bg-slate-400 rounded" th:classappend="${'order-'+column.order}" th:id="${'column'+column.id}">
         <h2 class="bg-slate-800 px-2 py-1 rounded text-2xl text-center my-2" th:text="${column.nom}"></h2>
-        <div class="drag_drop_target flex flex-col gap-1 min-h-[50%]" draggable="false" ondrop="drop(event)" ondragover="dragOver(event)" th:id="${'column'+column.id}">
-            Tache : <button th:id="openModalButton" onclick="show_modal()">Ajouter</button>
-            <div th:id="modal" style="display: none">
+        <div class="drag_drop_target flex flex-col gap-1 min-h-[80%]" draggable="false" ondrop="drop(event)" ondragover="dragOver(event)" th:id="${'column'+column.id}">
+            Tache : <button th:id="${'but_modal'+column.id}" onclick="show_modal(event)">Ajouter</button>
+            <div th:id="${'modal'+column.id}" style="display: none">
                 <div id="modal-content">
                     <div id="modal-header">
-                        <button id="closeModalButton" onclick="close_modal()">&times;</button>
+                        <button th:id="${'but_modal'+column.id}" onclick="close_modal(event)">&times;</button>
                         <h2>Titre de la modale</h2>
                     </div>
                     <div id="modal-body">
@@ -49,14 +51,38 @@
                     </div>
                 </div>
             </div>
-            <div th:each="task : ${column.tasks}" class="draggable flex" th:classappend="${'order-'+task.order}" th:id="${'task'+task.id}" draggable="true" ondragstart="dragStart(event)" ondragover="dragOver(event)">
-                <p class="basis-1/2 bg-slate-600 rounded my-1 text-center" th:text="${task.nom}" onclick=""></p>
-                <div style="display: none">
-                    <button  onclick="">&times</button>
-                    <p th:text="${task.description}"></p>
+            <div th:each="task : ${column.tasks}" class="flex flex-col">
+                <div class="draggable flex" th:classappend="${'order-'+task.order}" th:id="${'task'+task.id}" draggable="true" ondragstart="dragStart(event)" ondragover="dragOver(event)">
+                    <div class="basis-2/5 bg-slate-600 rounded m-0.5 text-center" >
+                        <p th:text="${task.nom}" onclick="show_description(event)" th:id="${'but_desc'+task.id}"></p>
+                        <div style="display: none" th:id="${'desc'+task.id}" class="m-2 bg-slate-500 rounded">
+                            <div class="flex justify-start">
+                                <button onclick="close_description(event)" th:id="${'desc'+task.id}" class="place-item-start">&times</button>
+                            </div>
+                            <p th:text="${task.description}"></p>
+                        </div>
+                    </div>
+                    <span class="basis-2/5 bg-slate-700 rounded m-0.5 text-center" th:if="${task.user == null}"><p></p></span>
+                    <span class="basis-2/5 bg-slate-700 rounded m-0.5 text-center" th:unless="${task.user == null}"><p th:text="${user.nom}"></p></span>
+                    <div class="basis-1/5 bg-slate-800 rounded m-0.5 text-center">
+                        <button th:id="${'but_edit'+task.id}" onclick="show_modal(event)">Editer</button>
+                    </div>
                 </div>
-                <span class="basis-1/2 bg-slate-700 rounded my-1 text-center" th:if="${task.user == null}"><p></p></span>
-                <span class="basis-1/2 bg-slate-700 rounded my-1 text-center" th:unless="${task.user == null}"><p th:text="${user.nom}"></p></span>
+                <div style="display: none" th:id="${'edit'+task.id}">
+                    <div class="flex justify-start">
+                        <button onclick="close_modal(event)" th:id="${'edit'+task.id}" class="place-item-start">&times</button>
+                    </div>
+                    <form th:action="@{/tasks/{id}/modify(id=${task.id})}" th:object="${taskDto}" method="POST" class="flex flex-col">
+                        <input class="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white mb-4" type="text" name="new_title" id="new_title" th:value="${task.nom}"/>
+                        <input class="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white mb-4" type="text" name="new_description" id="new_description" th:value="${task.description}"/>
+                        <select name="user" id="user" class="text-black">
+                            <option sec:authorize="isAuthenticated()" th:if="${kanban.creator.id == user.id}" th:each="member : ${kanban.members}" th:text="${member.nom+' '+member.prenom}"></option>
+                            <option sec:authorize="isAuthenticated()" th:unless="${kanban.creator.id == user.id}" th:text="${user.nom+' '+user.prenom}"></option>
+                        </select>
+                        <input class="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white mb-4" type="hidden" name="column_id" id="new_column_id" th:value="${column.id}"/>
+                        <input type="submit" value="Enregistrer" class="mx-auto bg-white text-black p-3 rounded-lg border-2 border-black"/>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

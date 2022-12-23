@@ -40,4 +40,15 @@ public class TaskController {
         return "redirect:/kanbans/"+kanban;
     }
 
+    @PostMapping(path="/{id}/modify")
+    public String modifyTask(@PathVariable Long id, @ModelAttribute("taskDto") TaskDto taskDto) {
+        var task = taskService.findById(id);
+        task.setNom(taskDto.getTitle());
+        task.setDescription(taskDto.getDescription());
+        var column = columnService.findById(taskDto.getColumn_id());
+        task.setColumn(column);
+        taskService.save(task);
+        var kanban = column.getKanban().getId();
+        return "redirect:/kanbans/"+kanban;
+    }
 }

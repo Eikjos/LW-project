@@ -15,6 +15,8 @@ public class TaskDto {
 
     private String description;
 
+    private Long user_id;
+
     @NotNull
     private Long column_id;
 

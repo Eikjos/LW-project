@@ -108,8 +108,6 @@ public class KanbanApplication {
 
             kanban2 = kanbanRepository.save(kanban2);
 
-            kanbanRepository.save(kanban1);
-            kanbanRepository.save(kanban2);
         }
     }
 }
