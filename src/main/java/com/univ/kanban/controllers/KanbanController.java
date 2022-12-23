@@ -2,6 +2,7 @@ package com.univ.kanban.controllers;
 
 import java.util.Set;
 
+import com.univ.kanban.dto.TaskDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,8 +35,9 @@ public class KanbanController {
             User user = usersService.findByEmail(authentication.getName()).orElseThrow();
             model.addAttribute("user", user);
         }
-
         Kanban kanban = kanbanService.findById(id);
+        TaskDto taskDto = new TaskDto();
+        model.addAttribute("taskDto", taskDto);
         model.addAttribute("kanban", kanban);
         return "kanban/kanban";
     }
