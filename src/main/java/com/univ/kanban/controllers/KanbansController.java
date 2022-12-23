@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.service.annotation.GetExchange;
 
 import com.univ.kanban.dto.KanbanDto;
 import com.univ.kanban.models.Kanban;
@@ -16,6 +17,9 @@ import com.univ.kanban.services.KanbanService;
 import com.univ.kanban.services.UsersService;
 
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -37,4 +41,7 @@ public class KanbansController {
         Kanban kanban = kanbanService.create(kanbanDto, user);
         return kanban.getId();
     }
+
+ 
+    
 }

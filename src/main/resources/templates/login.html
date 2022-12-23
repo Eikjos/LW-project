@@ -20,8 +20,10 @@
       <form th:action="@{/login}" method="POST" class="flex flex-col">
           <input class="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white mb-4" type="email" name="email" id="email" placeholder="Adresse mail"/>
           <input class="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white mb-4" type="password" name="password" id="password" placeholder="Mot de passe"/>
-        <input type="submit" value="Se connecter" class="mx-auto bg-white text-black p-3 rounded-lg border-2 border-black"/>
+          <a href="/register" class="text-sm px-2 w-64 mx-auto">Pas encore de compte ? inscrivez-vous</a>
+          <input type="submit" value="Se connecter" class="mx-auto mt-4 bg-white text-black p-3 rounded-lg border-2 border-black"/>
       </form>
+      
     </div>
   </body>
 </html>

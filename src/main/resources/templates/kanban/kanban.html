@@ -19,9 +19,12 @@
         </form>
     </div>
 </header>
-<form th:action="@{/kanbans/{id}/delete(id=${kanban.id})}" method="POST" sec:authorize="isAuthenticated()" th:if="${kanban.creator.id == user.id}" class="flex justify-end mt-5">
-    <button class="bg-slate-500 p-3 rounded-xl mr-6 text-white">Supprimer le kanban</button>
-</form>
+<div sec:authorize="isAuthenticated()" th:if="${kanban.creator.id == user.id}" class="flex justify-between">
+    <a th:href="@{'/kanbans/' + ${kanban.id} + '/invite-user'}"><button class="bg-slate-500 p-3 rounded-xl ml-6 mt-5 text-white">Inviter des utilsateur</button></a>
+    <form th:action="@{/kanbans/{id}/delete(id=${kanban.id})}" method="POST"  class="flex justify-end mt-5">
+        <button class="bg-slate-500 p-3 rounded-xl mr-6 text-white">Supprimer le kanban</button>
+    </form>
+</div>
 <div class="bg-slate-500 max-w-screen-lg mt-10 rounded-lg mx-auto text-white my-2">
     <h1 class="text-2xl text-center my-2" th:text="${kanban.nom}"></h1>
 

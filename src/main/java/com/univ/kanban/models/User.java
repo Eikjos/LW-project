@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import lombok.Data;
 
@@ -40,6 +41,9 @@ public class User implements Comparable<User> {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Task> tasks = new TreeSet<>();
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = {CascadeType.ALL})
+    private Set<KanbanRequest> requests;
 
     // ---
 

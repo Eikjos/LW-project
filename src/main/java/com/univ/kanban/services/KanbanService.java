@@ -36,7 +36,7 @@ public class KanbanService {
     }
 
     public Kanban findById(Long id) {
-        return kanbanRepository.findById(id);
+        return kanbanRepository.findById(id).orElseThrow();
     }
 
     public Kanban create(KanbanDto kanbanDto, User user) {
@@ -65,4 +65,5 @@ public class KanbanService {
     public void delete(Kanban kanban) {
         kanbanRepository.delete(kanban);
     }
+
 }

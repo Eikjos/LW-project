@@ -7,6 +7,7 @@ import java.util.TreeSet;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
@@ -59,14 +60,23 @@ public class Kanban implements Comparable<Kanban> {
   @OneToMany(mappedBy = "kanban", orphanRemoval = true, cascade = {CascadeType.ALL})
   private Set<KanbanColumn> columns;
 
+  @OneToMany(mappedBy = "kanban", fetch = FetchType.LAZY, orphanRemoval = true, cascade = {CascadeType.ALL})
+  private Set<KanbanRequest> requests;
   // ---
 
-  public void setChildren(Set<KanbanColumn> children) {
+  public void setColumns(Set<KanbanColumn> children) {
     this.columns.clear();
     if (children != null) {
       this.columns.addAll(children);
     }
-}
+  } 
+
+  public void setRequest(Set<KanbanRequest> requests) {
+    this.requests.clear();
+    if (requests != null) {
+      this.requests.addAll(requests);
+    }
+  }
 
   public void addMember(User user) {
     members.add(user);

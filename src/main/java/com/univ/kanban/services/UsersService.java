@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 
 import com.univ.kanban.dto.UserDto;
 import com.univ.kanban.exceptions.UserAlreadyExistException;
+import com.univ.kanban.models.Kanban;
 import com.univ.kanban.models.User;
 import com.univ.kanban.repositories.UserRepository;
 
 import java.util.Optional;
+import java.util.Set;
 
 @AllArgsConstructor
 @Service
@@ -34,6 +36,14 @@ public class UsersService {
         user.setPassword(model.getPassword());
 
         return userRepository.save(user);
+    }
+
+    public Set<User> userInNotkanban(Long id) {
+        return userRepository.findUserInNotInKanban(id);
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow();
     }
 
 }
