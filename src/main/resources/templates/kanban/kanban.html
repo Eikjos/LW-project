@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="text/javascript" src="/js/drag_drop.js"></script>
+    <script type="text/javascript" src="/js/add_task.js"></script>
 </head>
 <body>
 <header class="bg-emerald-700 py-5 flex justify-center items-center">
@@ -25,9 +26,29 @@
     <div th:each="column : ${kanban.columns}" class="gap-y-2 basis-1/2 mx-2 my-2 bg-slate-400 rounded" th:classappend="${'order-'+column.order}" th:id="${'column'+column.id}">
         <h2 class="bg-slate-800 px-2 py-1 rounded text-2xl text-center my-2" th:text="${column.nom}"></h2>
         <div class="drag_drop_target flex flex-col gap-1 min-h-[50%]" draggable="false" ondrop="drop(event)" ondragover="dragOver(event)" th:id="${'column'+column.id}">
-            Tache :
+            Tache : <button th:id="openModalButton" onclick="show_modal()">Ajouter</button>
+            <div th:id="modal" style="display: none">
+                <div id="modal-content">
+                    <div id="modal-header">
+                        <button id="closeModalButton" onclick="close_modal()">&times;</button>
+                        <h2>Titre de la modale</h2>
+                    </div>
+                    <div id="modal-body">
+                        <form th:action="@{/tasks/create}" th:object="${taskDto}" method="POST" class="flex flex-col">
+                            <input class="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white mb-4" type="text" name="title" id="title" placeholder="Titre de la tache"/>
+                            <input class="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white mb-4" type="text" name="description" id="description" placeholder="Description de la tache"/>
+                            <input class="form-control block w-full px-4 py-2 text-sm font-normal text-gray-700 bg-white mb-4" type="hidden" name="column_id" id="column_id" th:value="${column.id}"/>
+                            <input type="submit" value="Enregistrer" class="mx-auto bg-white text-black p-3 rounded-lg border-2 border-black"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div th:each="task : ${column.tasks}" class="draggable flex" th:classappend="${'order-'+task.order}" th:id="${'task'+task.id}" draggable="true" ondragstart="dragStart(event)" ondragover="dragOver(event)">
-                <p class="basis-1/2 bg-slate-600 rounded my-1 text-center" th:text="${task.nom}"></p>
+                <p class="basis-1/2 bg-slate-600 rounded my-1 text-center" th:text="${task.nom}" onclick=""></p>
+                <div style="display: none">
+                    <button  onclick="">&times</button>
+                    <p th:text="${task.description}"></p>
+                </div>
                 <span class="basis-1/2 bg-slate-700 rounded my-1 text-center" th:if="${task.user == null}"><p></p></span>
                 <span class="basis-1/2 bg-slate-700 rounded my-1 text-center" th:unless="${task.user == null}"><p th:text="${user.nom}"></p></span>
             </div>
