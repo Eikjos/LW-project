@@ -20,7 +20,8 @@ public class KanbanService {
     private final KanbanRepository kanbanRepository;
     private final ColumnRepository columnRepository;
 
-    public KanbanService(KanbanRepository kanbanRepository, ColumnRepository columnRepository, ModelMapper modelMapper) {
+    public KanbanService(KanbanRepository kanbanRepository, ColumnRepository columnRepository,
+            ModelMapper modelMapper) {
         this.kanbanRepository = kanbanRepository;
         this.columnRepository = columnRepository;
         this.modelMapper = modelMapper;
@@ -47,11 +48,11 @@ public class KanbanService {
         return kanban;
     }
 
-    public void beforeCreate(KanbanDto kanbanDto, Kanban kanban) {
+    protected void beforeCreate(KanbanDto kanbanDto, Kanban kanban) {
         return;
     }
 
-    public void afterCreate(KanbanDto kanbanDto, Kanban kanban) {
+    protected void afterCreate(KanbanDto kanbanDto, Kanban kanban) {
         for (ColumnDto col : kanbanDto.getColumns()) {
             if (col != null) {
                 KanbanColumn column = modelMapper.map(col, KanbanColumn.class);
@@ -59,5 +60,9 @@ public class KanbanService {
                 columnRepository.save(column);
             }
         }
+    }
+
+    public void delete(Kanban kanban) {
+        kanbanRepository.delete(kanban);
     }
 }

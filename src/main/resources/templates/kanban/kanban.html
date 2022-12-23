@@ -19,6 +19,9 @@
         </form>
     </div>
 </header>
+<form th:action="@{/kanbans/{id}/delete(id=${kanban.id})}" method="POST" sec:authorize="isAuthenticated()" th:if="${kanban.creator.id == user.id}" class="flex justify-end mt-5">
+    <button class="bg-slate-500 p-3 rounded-xl mr-6 text-white">Supprimer le kanban</button>
+</form>
 <div class="bg-slate-500 max-w-screen-lg mt-10 rounded-lg mx-auto text-white my-2">
     <h1 class="text-2xl text-center my-2" th:text="${kanban.nom}"></h1>
 
