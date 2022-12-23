@@ -42,6 +42,10 @@ public class KanbanService {
     public Kanban create(KanbanDto kanbanDto, User user) {
         Kanban kanban = new Kanban();
         kanban.setCreator(user);
+        kanban.addMember(user);
+        kanban.setDescription(kanbanDto.getDescription());
+        kanban.setNom(kanbanDto.getNom());
+        kanban.setPublic(kanbanDto.isPublickanban());
         beforeCreate(kanbanDto, kanban);
         kanban = kanbanRepository.save(kanban);
         afterCreate(kanbanDto, kanban);

@@ -42,6 +42,9 @@ public class KanbanDto {
     @JsonProperty
     private List<ColumnDto> columns;
 
+    @NotNull
+    private boolean publickanban;
+
     public String getNom() {
         return nom;
     }

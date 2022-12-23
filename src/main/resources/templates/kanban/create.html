@@ -48,6 +48,10 @@
           <input type="hidden" name="columns[2].order" value="1" id="columnOrder2" />
         </div>
       </div>
+      <div class="flex items-center">
+        <label class="text-white">Rendre public :</label>
+        <input type="checkbox" name="isPublic" class="ml-2"/>
+      </div>
       <input type="submit" value="Enregistrer" class="mx-auto bg-white text-black p-3 rounded-lg" />
     </form>
   </div>
@@ -85,13 +89,14 @@
         }
       }
 
+      const isPublic = data.get('isPublic') == null ? false : true;
+
       var d = {
         nom: data.get('nom'),
         description: data.get('description'),
-        columns: columns
+        columns: columns,
+        publickanban : isPublic
       };
-
-      console.log('structure', JSON.stringify(d))
 
       fetch('save', {
         method: 'post',
