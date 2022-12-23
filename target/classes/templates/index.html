@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <title>Kandan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <header class="bg-emerald-700 py-5 flex justify-center items-center">
+      <h1 class="text-5xl font-bold text-white ml-3">KANBAN</h1>
+      <div sec:authorize="isAuthenticated()" class="absolute right-10 bg-white p-3 rounded-xl border-2 border-black">
+        <form th:action="@{/logout}" method="post">
+          <button type="submit">Déconnexion</button>
+        </form>
+      </div> 
+      <div sec:authorize="!isAuthenticated()" class="absolute right-10 bg-white p-3 rounded-xl border-2 border-black">
+        <a href="/login"><button>Se connecter</button></a>
+      </div>
+    </header>
+    <th:block sec:authorize="isAuthenticated()" th:if="${kanbanRequest != null && kanbanRequest.size() > 0}">
+      <div class="bg-slate-700 p-4 rounded-2xl">
+        <div th:each="request : ${kanbanRequest}" class="flex justify-between items-center bg-slate-300 p-4 rounded-2xl mb-2 mt-2" >
+          <h3 th:text="${request.kanban.nom}" class="font-bold"></h3> 
+          <div class="flex justify-between ml-2 bg-slate-300">
+            <form th:action="@{kanban-request/{id}/accept(id=${request.id})}" method="POST" class="mr-2">
+              <button class="bg-emerald-700 p-2 rounded-xl text-white">Accepter</button>
+            </form>
+            <form th:action="@{kanban-request/{id}/refuse(id=${request.id})}" method="POST" class="ml-2">
+              <button class="bg-red-700 p-2 rounded-xl text-white">Refuser</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </th:block>
+    <div class="flex flex-row justify-center items-baseline relative">
+      <div class="w-1/3 justify-center mt-10 text-2xl bg-slate-500 text-center text-white p-2 rounded-lg">
+        <h1>Les différents projets</h1>
+      </div>
+      <a href="kanbans/create">
+        <div class="bg-slate-500 text-4xl w-16 h-16 font-bold text-white text-center rounded-full absolute right-10 hover:bg-slate-400 hover:text-black">
+            <p class="my-2">+</p>
+        </div>
+      </a>
+    </div>
+    <div class="flex flex-row flex-wrap justify-center mt-10 mx-56">
+      <div th:each="kanban : ${kanbans}" class="card w-1/5 h-44 mr-4 my-4 bg-slate-300 p-4 rounded-2xl overflow-y-hidden">
+        <a th:href="@{kanbans/{id}(id=${kanban.id})}">
+            <h2 th:text="${kanban.nom}"></h2>
+            <hr class="my-2 h-1">
+            <p th:text="${kanban.description}"></p>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
